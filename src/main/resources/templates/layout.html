@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <title>board</title>
+</head>
+<body>
+
+    <div class="container my-3">
+		<div class ="row mb-3">
+			<div class ="col-4">
+	        <a class="navbar-brand " href="/">
+				<img src="/img/logo1.jpg" alt="로고">
+			</a>
+			</div>		
+       		<div class = "col-6">	   
+			</div>
+        	<div class = "col-1">    
+					<a class="nav-link"  sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                    <a class="nav-link"  sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+			</div>
+			<div class="col-1">
+                    <a class="nav-link" th:href="@{/user/signup}">회원가입</a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<th:block layout:fragment="content"></th:block>
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script th:src="@{/bootstrap.min.js}"></script>
+<!-- 자바스크립트 Start -->
+<th:block layout:fragment="script"></th:block>
+<!-- 자바스크립트 End -->
+</body>
+</html>

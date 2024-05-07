@@ -1,0 +1,290 @@
+<html layout:decorate="~{layout}">
+	<head>
+	    <style>
+	        .error-class {
+	            color: red;
+	        }
+	    </style>
+	</head>
+<div layout:fragment="content" class="container my-3">
+    <div class="my-3">
+        <div class="text-center">
+            <h4>회원가입</h4>
+        </div>
+    </div>
+    <form id="signupForm" th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+		<div class="container">
+		<div class="row justify-content-center">
+		 <div class="col-lg-8 col-md-10 col-sm-12">	
+	        <div class="row mb-3 ">
+				<div class="col-8">
+		            <label for="username" class="form-label">아이디</label>
+		            <input type="text" th:field="*{userid}" class="form-control" id="userid" th:errorclass="error-class">
+	            </div>
+		            <div class="col-4 pt-4">
+					<button type="button" id="checkDuplicate" class="btn btn-secondary">중복확인</button>
+	            </div>
+	            <div class="error-class" th:errors="*{userid}"></div>
+	            <div id="duplicateMessage"></div>
+	        </div> 
+        <div class="mb-3">
+            <label for="password1" class="form-label">비밀번호</label>
+            <input type="password" th:field="*{password1}" class="form-control" th:errorclass="error-class">
+            <div class="error-class" th:errors="*{password1}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">비밀번호 재확인</label>
+ 		<input type="password" th:field="*{password2}" class="form-control" th:errorclass="error-class">
+    	  	<div class="error-class" th:errors="*{password2}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="companyname" class="form-label">회사명</label>
+            <input type="text" th:field="*{companyname}" class="form-control" th:errorclass="error-class">
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">이름</label>
+            <input type="text" th:field="*{username}" class="form-control" th:errorclass="error-class">
+            <div class="error-class" th:errors="*{username}"></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">연락처</label>
+            <div class="input-group">
+                <input type="text" id="phonenumber1" class="form-control" value="010" >
+                <span class="input-group-text">-</span>
+                <input type="text" id="phonenumber2" class="form-control" >
+                <span class="input-group-text">-</span>
+                <input type="text" id="phonenumber3" class="form-control" >
+            </div>
+            <div id="phonenumberError" class="error-class"></div>
+        </div>
+		<div class="mb-5" >
+		        <label for="emailPrefix" class="form-label">이메일 주소</label>
+		        <div class="input-group">
+		            <input type="text" id="emailPrefix" name="emailPrefix" class="form-control" >
+		            <span class="input-group-text">@</span>
+		            <input type="text" id="customDomain" name="customDomain" class="form-control" >
+		            <select name="emailDomain" id="emailDomain" class="form-select">
+		                <option value="custom">직접 입력</option>
+		                <option value="gmail.com">gmail.com</option>
+		                <option value="daum.net">daum.net</option>
+		                <option value="hanmail.net">hanmail.net</option>
+		                <option value="hanmail.net">hotmail.com</option>
+		                <option value="hanmail.net">nate.com</option>
+		                <option value="hanmail.net">naver.com</option>
+		            </select> 
+		        </div>
+		        <div id="emailError" class="error-class"></div>
+		    </div>
+		    </div>
+		    </div>
+		  </div>  
+			<div class="container">
+			    <div class="row justify-content-center">
+			        <div class="col-lg-8 col-md-10 col-sm-12">
+			            <div class="mb-3 form-check border-top">
+			                <div class="my-3"><p><strong>이용약관, 개인정보, 마케팅 수신에 관한 내용을 확인하실 수 있습니다.</strong></p></div>
+			                <input type="checkbox" class="form-check-input" id="termsCheckAll">
+			                <label class="form-check-label" for="termsCheckAll"><strong>모두 동의합니다.</strong><br/>
+			                    아래의 이용항복에 미 동의 할 권리가 있으나, 미 동의 시 서비스 이용에 제한이 있을 수 있습니다. 이는 회원가입 및 서비스 이용 목적으로만 이용되며, 외부의 목적이나 요청에 의해 제공되지 않습니다.
+			                </label><br/>
+			                
+			                <input type="checkbox" class="form-check-input" id="termsCheck1">
+			                <label class="form-check-label" for="termsCheck1"><strong>이용약관 확인(필수)</strong></label><br/>
+			                
+			                <input type="checkbox" class="form-check-input" id="termsCheck2">
+			                <label class="form-check-label" for="termsCheck2"><strong>개인정보 수집 및 이용 동의(필수)</strong></label><br/>
+			                
+			                <input type="checkbox" class="form-check-input" id="termsCheck3">
+			                <label class="form-check-label" for="termsCheck3"><strong>SNS/이메일 마케팅 (할인,이벤트 등 ) 수신동의(선택)</strong></label><br/>
+			            </div>
+			            
+			            <!-- 글로벌 에러 처리 부분 -->
+			            <div th:if="${#fields.hasGlobalErrors()}">
+			                <p class="error-class" th:each="err : ${#fields.globalErrors()}" th:text="${err}"/>
+			            </div> <br/>
+			            <div class="text-center">
+				            <button type="button" id="cancelButton" class="btn btn-secondary">취소</button>
+				            <button type="submit" class="btn btn-secondary">다음</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+    </form>
+    
+		    <!-- 모달 창 -->
+		<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" onclick="closeModal()"></button>
+		      </div>
+		      <div class="modal-body" id="modalBody">
+		        <!-- 모달 내용 -->
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" onclick="closeModal()">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		    
+    <script th:inline="javascript">
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var emailPrefix = document.getElementById('emailPrefix').value;
+        var emailDomain = document.getElementById('emailDomain').value;
+        var customDomain = document.getElementById('customDomain').value;
+
+        if (emailDomain === 'custom') {
+            emailDomain = customDomain;
+        }
+
+        var email = emailPrefix + '@' + emailDomain;
+
+        var emailInput = document.createElement('input');
+        emailInput.type = 'hidden';
+        emailInput.name = 'email';
+        emailInput.value = email;
+        this.appendChild(emailInput);
+        
+        if (emailPrefix.trim() === '' || emailDomain.trim() === '') {
+	    var errorElement = document.getElementById('emailError');
+	    errorElement.innerText = '이메일은 필수항목입니다.';
+	    }
+		
+
+	    // 세 개의 연락처 필드 값을 가져와 결합
+	    var phonenumber1 = document.getElementById('phonenumber1').value;
+	    var phonenumber2 = document.getElementById('phonenumber2').value;
+	    var phonenumber3 = document.getElementById('phonenumber3').value;
+	    var phoneNumber = phonenumber1 + phonenumber2 + phonenumber3;
+	    
+	    if (phonenumber1.trim() === '' || phonenumber2.trim() === '' || phonenumber3.trim() === '') {
+	    var errorElement = document.getElementById('phonenumberError');
+	    errorElement.innerText = '연락처는 필수항목입니다.';
+		}
+
+	    // 숨은 입력 필드에 할당
+	    var phoneNumberInput = document.createElement('input');
+	    phoneNumberInput.type = 'hidden';
+	    phoneNumberInput.name = 'phonenumber';
+	    phoneNumberInput.value = phoneNumber;
+	    this.appendChild(phoneNumberInput);
+
+		if (phonenumber1.trim() === '' || phonenumber2.trim() === '' || phonenumber3.trim() === '' ||
+    	emailPrefix.trim() === '' || emailDomain.trim() === '') {
+    	return; // 폼 전송 중단
+		}
+        
+        this.submit();
+        
+        
+    });
+  
+      document.getElementById('emailDomain').addEventListener('change', function() {
+        var customDomainInput = document.getElementById('customDomain');
+        if (this.value === 'custom') {
+            customDomainInput.disabled = false; // 직접 입력란 활성화
+            customDomainInput.focus(); // 직접 입력란에 포커스
+        } else {
+            customDomainInput.disabled = true; // 직접 입력란 비활성화
+            customDomainInput.value = ''; // 직접 입력란 비우기
+        }
+    });
+    
+
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        window.location.href = '/'; // 홈페이지로 이동
+    });
+	    
+	document.getElementById('termsCheckAll').addEventListener('change', function() {
+	    var checkboxes = document.querySelectorAll('.form-check-input');
+	    checkboxes.forEach(function(checkbox) {
+	        checkbox.checked = document.getElementById('termsCheckAll').checked;
+	    });
+	});
+
+    function showModal(message) {
+        var modalBody = document.getElementById('modalBody');
+        modalBody.innerText = message;
+        document.getElementById('errorModal').classList.add('show'); 
+        document.getElementById('errorModal').style.display = 'block'; 
+        document.getElementById('errorModal').style.opacity = 1; 
+        document.getElementById('errorModal').setAttribute('aria-modal', 'true'); 
+    }
+    
+   function closeModal() {
+    document.getElementById('errorModal').classList.remove('show');
+    document.getElementById('errorModal').style.display = 'none';
+    document.getElementById('errorModal').setAttribute('aria-modal', 'false');
+  }
+	
+	document.getElementById('signupForm').addEventListener('submit', function(event) {
+	    event.preventDefault();
+	
+	    var termsCheck1 = document.getElementById('termsCheck1').checked;
+	    var termsCheck2 = document.getElementById('termsCheck2').checked;
+	
+	    if (!termsCheck1) {
+	        showModal('수강생 이용약관에 동의해주세요.');
+	        return;
+	    }
+	
+	    if (!termsCheck2) {
+	        showModal('개인정보 수집 및 이용에 동의해주세요.');
+	        return;
+	    }
+	
+	});
+	
+	document.getElementById('checkDuplicate').addEventListener('click', function() {
+	
+	
+    var userId = document.getElementById('userid').value;
+    
+        if (!userId.trim()) {
+        // 비어 있는 경우 경고 메시지 표시
+        document.getElementById('duplicateMessage').innerText = '아이디를 입력하세요.';
+        document.getElementById('duplicateMessage').style.color = 'red';
+        return; // 함수 종료
+    }
+    
+    var encodedUserId = encodeURIComponent(userId); // 사용자 ID 인코딩
+
+    var url = '/user/checkUserId?userid=' + encodedUserId; // 인코딩된 사용자 ID를 요청 URL에 추가
+
+    // fetch 함수를 사용하여 POST 요청 보내기
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // 텍스트 형식으로 응답 받기
+    })
+    .then(data => {
+        // 응답 처리
+        if (data === "사용자 ID가 이미 존재합니다.") {
+            document.getElementById('duplicateMessage').innerText = '이미 사용 중인 아이디 입니다.';
+            document.getElementById('duplicateMessage').style.color = 'red';
+        } else {
+            document.getElementById('duplicateMessage').innerText = '사용 가능한 아이디 입니다.';
+        }
+    })
+    .catch(error => {
+        // 오류 처리
+        console.error('오류 발생:', error);
+    });
+});
+
+</script>
+
+</div>
+</html>
+
+
